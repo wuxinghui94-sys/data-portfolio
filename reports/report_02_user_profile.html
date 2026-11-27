@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>在线训练营 / SaaS 订阅 · 成交用户四维画像与投放定向优化报告（仿真Demo）</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{--bg:#f8fafc;--card:#ffffff;--bd:#e2e8f0;--t1:#0f172a;--t2:#334155;--t3:#64748b;--accent:#2563eb;--indigo:#4f46e5;--emerald:#059669;--amber:#d97706;--purple:#7c3aed;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--t1);line-height:1.65;}
+.wrap{padding:26px 20px;}.container{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:24px;}
+.header{background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 100%);color:#fff;border-radius:16px;padding:30px 36px;box-shadow:0 8px 20px rgba(30,58,138,.18);}
+.header-tag{font-size:12px;font-weight:700;color:#93c5fd;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;}
+.title{font-size:25px;font-weight:800;}.subtitle{font-size:14px;color:#dbeafe;margin-top:8px;max-width:920px;}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+@media(max-width:800px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+.kpi-card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:20px;}
+.kpi-num{font-size:28px;font-weight:800;line-height:1.1;margin-bottom:6px;}.kpi-label{font-size:13px;color:var(--t2);font-weight:600;}.kpi-sub{font-size:12px;color:var(--t3);margin-top:3px;}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:26px;}
+.sec-title{font-size:18px;font-weight:800;display:flex;align-items:center;gap:10px;border-bottom:2px solid var(--bd);padding-bottom:10px;margin-bottom:18px;}
+.sec-title::before{content:'';width:4px;height:18px;background:var(--accent);border-radius:2px;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:22px;}.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+@media(max-width:860px){.g2,.g3{grid-template-columns:1fr;}}
+.chart-wrap{position:relative;height:280px;width:100%;}
+.city-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:10px;}
+.city-card{background:#f8fafc;border:1px solid var(--bd);border-radius:8px;padding:9px 12px;display:flex;justify-content:space-between;align-items:center;font-size:13px;}
+.city-count{font-size:12px;font-weight:700;color:var(--accent);background:#eff6ff;padding:2px 7px;border-radius:10px;}
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:8px;}
+th{background:#f8fafc;color:var(--t2);font-weight:700;padding:11px 12px;border-bottom:2px solid var(--bd);text-align:left;}
+td{padding:11px 12px;border-bottom:1px solid var(--bd);color:var(--t2);}
+.tag-pill{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11.5px;font-weight:700;background:#eff6ff;color:#1d4ed8;}
+.strat-box{background:#f8fafc;border:1px solid var(--bd);border-top:3px solid var(--accent);border-radius:12px;padding:18px;}
+.strat-box h4{font-size:15px;color:var(--t1);margin-bottom:8px;}.strat-box p{font-size:13px;color:var(--t2);line-height:1.65;}
+footer{text-align:center;font-size:12.5px;color:var(--t3);padding:16px;border-top:1px solid var(--bd);}
+</style>
+</head>
+<body>
+
+<!-- Portfolio Demo Top Bar -->
+<div style="position:sticky;top:0;z-index:9999;background:rgba(15,23,42,0.95);backdrop-filter:blur(8px);color:#f8fafc;padding:10px 20px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid rgba(148,163,184,0.2);font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;font-size:13px;">
+  <div style="display:flex;align-items:center;gap:12px;">
+    <a href="../index.html" style="color:#ffffff;text-decoration:none;background:#2563eb;padding:5px 12px;border-radius:6px;font-weight:600;display:inline-flex;align-items:center;gap:5px;">← 返回作品集主页</a>
+    <span style="font-weight:600;color:#e2e8f0;">吴幸晖 · 商业数据分析作品集</span>
+  </div>
+  <div style="font-size:12px;color:#cbd5e1;background:rgba(255,255,255,0.08);padding:4px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);">
+    🛡️ <strong>纯仿真演示版</strong>：业务场景已泛化为「在线教育 / SaaS 订阅体验营」，全量数据均由算法独立随机仿真生成，零真实商业数据与个人隐私
+  </div>
+</div>
+
+<div class="wrap"><div class="container">
+  <div class="header">
+    <div class="header-tag">USER SEGMENTATION &amp; PRECISION TARGETING · 仿真用户画像分析</div>
+    <div class="title">高客单在线训练营 / SaaS 订阅 · 成交用户四维画像与投放定向优化报告</div>
+    <div class="subtitle">基于独立仿真的 5,640 条历史订阅成交明细（已按规范剔除 360 条全额退款记录，有效净成交样本 5,280 人），从<strong>年龄阶段、城市能级、职业背景、核心需求痛点</strong>四个维度开展交叉透视，反哺前端广告精准定向与后端分层运营。</div>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="kpi-num" style="color:var(--accent)">5,280 人</div><div class="kpi-label">有效净成交样本（仿真）</div><div class="kpi-sub">已剔除 360 条全额退单记录</div></div>
+    <div class="kpi-card"><div class="kpi-num" style="color:var(--indigo)">68.4%</div><div class="kpi-label">25-40 岁职场主力占比</div><div class="kpi-sub">付费决策快、工具提效需求强</div></div>
+    <div class="kpi-card"><div class="kpi-num" style="color:var(--emerald)">64.2%</div><div class="kpi-label">一线及新一线城市占比</div><div class="kpi-sub">北上广深杭成稳居 Top 6</div></div>
+    <div class="kpi-card"><div class="kpi-num" style="color:var(--amber)">2.3x</div><div class="kpi-label">高匹配人群转化溢价</div><div class="kpi-sub">精准人群包 vs 泛流量通投对比</div></div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">一、成交用户年龄结构与职业分布双维透视</div>
+    <div class="g2">
+      <div>
+        <h4 style="font-size:14.5px;margin-bottom:10px;color:var(--t2);">年龄分层分布（有效填写样本）</h4>
+        <div class="chart-wrap"><canvas id="ageChart"></canvas></div>
+      </div>
+      <div>
+        <h4 style="font-size:14.5px;margin-bottom:10px;color:var(--t2);">核心职业身份 Top 7 分布</h4>
+        <div class="chart-wrap"><canvas id="occChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">二、地域能级分布与 Top 16 成交城市矩阵</div>
+    <div class="g2">
+      <div>
+        <div class="chart-wrap" style="height:240px;"><canvas id="tierChart"></canvas></div>
+        <p style="font-size:13px;color:var(--t2);margin-top:10px;">
+          📍 <strong>地域洞察</strong>：一线（29.5%）与新一线/二线城市（34.7%）合计贡献超六成高客单成交，对效率工具与系统化方法论付费心智成熟；三线及以下市场（21.6%）客单敏感度较高，更适合先以低门槛体验产品承接转化。
+        </p>
+      </div>
+      <div>
+        <h4 style="font-size:14.5px;color:var(--accent);margin-bottom:8px;">🏙️ 模拟成交城市 Top 16 排行</h4>
+        <div class="city-grid">
+          <div class="city-card"><span>上海市</span><span class="city-count">462 人</span></div>
+          <div class="city-card"><span>北京市</span><span class="city-count">438 人</span></div>
+          <div class="city-card"><span>深圳市</span><span class="city-count">395 人</span></div>
+          <div class="city-card"><span>广州市</span><span class="city-count">312 人</span></div>
+          <div class="city-card"><span>杭州市</span><span class="city-count">268 人</span></div>
+          <div class="city-card"><span>成都市</span><span class="city-count">224 人</span></div>
+          <div class="city-card"><span>南京市</span><span class="city-count">196 人</span></div>
+          <div class="city-card"><span>武汉市</span><span class="city-count">184 人</span></div>
+          <div class="city-card"><span>苏州市</span><span class="city-count">172 人</span></div>
+          <div class="city-card"><span>重庆市</span><span class="city-count">165 人</span></div>
+          <div class="city-card"><span>西安市</span><span class="city-count">148 人</span></div>
+          <div class="city-card"><span>长沙市</span><span class="city-count">132 人</span></div>
+          <div class="city-card"><span>天津市</span><span class="city-count">118 人</span></div>
+          <div class="city-card"><span>青岛市</span><span class="city-count">106 人</span></div>
+          <div class="city-card"><span>郑州市</span><span class="city-count">98 人</span></div>
+          <div class="city-card"><span>东莞市</span><span class="city-count">92 人</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">三、四维交叉画像：核心客群痛点标签与精准投放策略矩阵</div>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead><tr><th>核心客群分层</th><th>占比</th><th>典型职业与地域</th><th>高频核心痛点标签</th><th>前端投放素材切口</th><th>后端转化与产品匹配</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1. 职场提效进阶型</strong></td><td><span class="tag-pill">34.2%</span></td><td>互联网/运营/数据分析（一线 &amp; 新一线）</td><td>重复手工报表耗时、SQL/AI 工具落地难、晋升缺量化作品</td><td>直击“3小时报表压到半小时”“AI 提效实战模板”</td><td>突出实战项目交付与可复用代码/看板模板</td></tr>
+          <tr><td><strong>2. 中小商家/团队管理型</strong></td><td><span class="tag-pill">24.8%</span></td><td>电商商家/企业主/销售主管（江浙沪 &amp; 广深）</td><td>投放 ROI 看不清、跨系统数据割裂、团队过程难量化</td><td>聚焦“渠道 ROI 归因”“团队人效可视化盯盘”</td><td>主推企业/高阶实战营 + 1v1 经营诊断服务</td></tr>
+          <tr><td><strong>3. 跨行转型突破型</strong></td><td><span class="tag-pill">19.5%</span></td><td>传统行业职员/应届生（二三线 &amp; 省会）</td><td>缺乏体系化业务分析框架、面试讲不出项目闭环</td><td>强调“从 0 到 1 商业分析闭环”“真实业务拆解”</td><td>强化阶段作业点评 + 模拟业务复盘陪跑</td></tr>
+          <tr><td><strong>4. 自由职业/个体增长型</strong></td><td><span class="tag-pill">13.1%</span></td><td>自媒体/独立顾问/斜杠青年（全能级分布）</td><td>获客转化波动大、缺少私域留存与漏斗诊断抓手</td><td>切入“流量漏斗诊断”“高客单转化 SOP”</td><td>提供轻量工具包与灵活录播回放机制</td></tr>
+          <tr><td><strong>5. 泛兴趣探索型</strong></td><td><span class="tag-pill">8.4%</span></td><td>非目标岗位/低刚需人群（下沉泛流量）</td><td>痛点模糊、跟风下单，后续完课率低且退费风险高</td><td><strong>投放侧主动排除</strong>，减少无效线索消耗</td><td>售前增设需求自测问卷，前置过滤非刚需</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">四、画像反哺业务闭环：前端投流与后端运营落地建议</div>
+    <div class="g3">
+      <div class="strat-box" style="border-top-color:var(--accent);"><h4>1. 广告定向收窄与人群包分层</h4><p>基于成交画像收窄广谱通投，在信息流平台按<strong>“25-40 岁 × 一线/新一线 × 职场/电商/SaaS 兴趣标签”</strong>搭建高转化种子人群包，过滤低意向泛流量，显著降低前端获客浪费。</p></div>
+      <div class="strat-box" style="border-top-color:var(--indigo);"><h4>2. 素材分人群精准匹配</h4><p>针对“职场提效”与“商家管数”两类核心人群拆分独立素材与落地页，避免“大水漫灌”式通用文案，将高意图用户精准导流至对应体验营班型。</p></div>
+      <div class="strat-box" style="border-top-color:var(--emerald);"><h4>3. CRM 客户标签结构化沉淀</h4><p>将年龄段、职业类别、核心痛点固化为 CRM 下拉标准字段，打通“前端标签 → 顾问跟进侧重点 → 后端课程交付”数据闭环，提升线索利用率与续费留存。</p></div>
+    </div>
+  </div>
+
+  <footer>吴幸晖 · 商业数据分析作品集 Demo ｜ 100% 独立仿真数据生成，无任何真实公司信息或客户个人隐私</footer>
+</div></div>
+<script>
+window.addEventListener('load',function(){
+  new Chart(document.getElementById('ageChart').getContext('2d'),{type:'doughnut',data:{labels:['25-30岁 (29.6%)','31-35岁 (24.8%)','36-40岁 (14.0%)','41岁以上 (16.4%)','25岁以下 (15.2%)'],datasets:[{data:[1563,1309,739,866,803],backgroundColor:['#2563eb','#4f46e5','#7c3aed','#0d9488','#94a3b8'],borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{font:{size:12}}}}}});
+  new Chart(document.getElementById('occChart').getContext('2d'),{type:'bar',data:{labels:['互联网/运营','电商/商家','企业中层管理','金融/财务','教育/咨询','自由职业','高校/应届'],datasets:[{label:'模拟成交人数',data:[1280,1045,860,640,565,495,395],backgroundColor:'#4f46e5',borderRadius:6}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true}}}});
+  new Chart(document.getElementById('tierChart').getContext('2d'),{type:'bar',data:{labels:['一线城市(北上广深)','新一线/二线城市','三线及以下','未标注'],datasets:[{label:'占比 (%)',data:[29.5,34.7,21.6,14.2],backgroundColor:['#1e3a8a','#2563eb','#0ea5e9','#cbd5e1'],borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y+'%'}}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v+'%'}}}}});
+});
+</script>
+</body></html>

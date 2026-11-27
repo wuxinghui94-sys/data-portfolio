@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>在线训练营 / SaaS 订阅 · 月度退费动因归因与产品履约诊断大屏（仿真Demo）</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{--bg:#f8fafc;--card:#ffffff;--navy:#0f172a;--primary:#1e3a8a;--accent:#2563eb;--emerald:#059669;--amber:#d97706;--rose:#e11d48;--text:#334155;--muted:#64748b;--bd:#e2e8f0;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+.wrap{padding:24px 20px 48px;}.container{max-width:1280px;margin:0 auto;display:flex;flex-direction:column;gap:24px;}
+.hero{background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 100%);color:#fff;padding:28px 34px;border-radius:16px;box-shadow:0 10px 24px -6px rgba(15,23,42,.2);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;}
+.hero h1{font-size:24px;font-weight:800;margin:6px 0;}.hero p{font-size:13.5px;color:#cbd5e1;}
+.pill{display:inline-block;padding:3px 10px;border-radius:999px;font-size:11.5px;font-weight:700;background:rgba(255,255,255,.15);color:#fff;margin-right:6px;}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+@media(max-width:800px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+.kpi{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:18px 20px;border-left:4px solid var(--primary);}
+.kpi-lbl{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;}.kpi-val{font-size:28px;font-weight:800;color:var(--navy);margin:6px 0;}.kpi-sub{font-size:12px;color:var(--muted);display:flex;justify-content:space-between;}
+.g2{display:grid;grid-template-columns:1.35fr 1fr;gap:20px;}.g2eq{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+@media(max-width:900px){.g2,.g2eq{grid-template-columns:1fr;}}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:22px 24px;}
+.card h2{font-size:16.5px;font-weight:800;color:var(--navy);margin-bottom:4px;}.card-sub{font-size:12.5px;color:var(--muted);margin-bottom:16px;}
+.chart-box{position:relative;height:270px;width:100%;}
+.ch-item{padding:12px 14px;border-radius:10px;margin-bottom:10px;border:1px solid var(--bd);background:#f8fafc;}
+.ch-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;font-size:13px;font-weight:700;}
+.rate-tag{padding:2px 8px;border-radius:4px;font-size:11.5px;font-weight:700;}
+.case-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:16px;}
+.case-card{background:#fff;border:1px solid var(--bd);border-left:4px solid var(--accent);border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px;}
+.case-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;}
+.case-dim{font-size:12px;font-weight:700;padding:3px 8px;border-radius:5px;background:#eff6ff;color:#1d4ed8;}
+.case-share{font-size:12px;font-weight:700;color:var(--rose);}
+.case-card h3{font-size:15px;color:var(--navy);}
+.case-card p{font-size:12.8px;color:var(--text);line-height:1.6;}
+.case-act{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534;font-size:12px;font-weight:600;padding:8px 10px;border-radius:8px;margin-top:auto;}
+.strat-wrap{background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);color:#fff;border-radius:16px;padding:26px 30px;}
+.strat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px;}
+@media(max-width:900px){.strat-grid{grid-template-columns:repeat(2,1fr);}}
+.strat-item{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:16px;}
+.strat-item h4{font-size:13.5px;color:#93c5fd;margin-bottom:6px;}.strat-item p{font-size:12px;color:#cbd5e1;line-height:1.6;}
+footer{text-align:center;font-size:12px;color:var(--muted);padding-top:10px;}
+</style>
+</head>
+<body>
+
+<!-- Portfolio Demo Top Bar -->
+<div style="position:sticky;top:0;z-index:9999;background:rgba(15,23,42,0.95);backdrop-filter:blur(8px);color:#f8fafc;padding:10px 20px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid rgba(148,163,184,0.2);font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;font-size:13px;">
+  <div style="display:flex;align-items:center;gap:12px;">
+    <a href="../index.html" style="color:#ffffff;text-decoration:none;background:#2563eb;padding:5px 12px;border-radius:6px;font-weight:600;display:inline-flex;align-items:center;gap:5px;">← 返回作品集主页</a>
+    <span style="font-weight:600;color:#e2e8f0;">吴幸晖 · 商业数据分析作品集</span>
+  </div>
+  <div style="font-size:12px;color:#cbd5e1;background:rgba(255,255,255,0.08);padding:4px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);">
+    🛡️ <strong>纯仿真演示版</strong>：业务场景已泛化为「在线教育 / SaaS 订阅体验营」，全量数据均由算法独立随机仿真生成，零真实商业数据与个人隐私
+  </div>
+</div>
+
+<div class="wrap"><div class="container">
+  <div class="hero">
+    <div>
+      <div style="margin-bottom:6px;"><span class="pill">留存与流失归因诊断</span><span class="pill">在线教育 / SaaS 订阅仿真模型</span></div>
+      <h1>月度高客单退费根因归因与产品履约优化诊断大屏</h1>
+      <p>分析口径：模拟成交订单底表（310 单）× 结构化退费审批与客诉标签库 · 严格遵循 <code>退单率 = 退单数 / (净留存 + 退单数)</code></p>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-size:12px;color:#94a3b8;">归因分析框架</div>
+      <div style="font-size:18px;font-weight:800;color:#60a5fa;">渠道 × 顾问 × 5大退费根因</div>
+      <div style="font-size:11.5px;color:#cbd5e1;">纯仿真数据 · 零隐私与商业敏感信息</div>
+    </div>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi" style="border-left-color:var(--primary);"><div class="kpi-lbl">月度有效成交总数</div><div class="kpi-val">310 <span style="font-size:14px;font-weight:400;color:var(--muted);">单</span></div><div class="kpi-sub"><span>模拟总流水</span><strong>¥923,800</strong></div></div>
+    <div class="kpi" style="border-left-color:var(--rose);"><div class="kpi-lbl">月度退单总数（分子）</div><div class="kpi-val" style="color:var(--rose);">25 <span style="font-size:14px;font-weight:400;color:var(--muted);">单</span></div><div class="kpi-sub"><span>退款流水</span><strong style="color:var(--rose);">¥74,500</strong></div></div>
+    <div class="kpi" style="border-left-color:var(--amber);"><div class="kpi-lbl">整体月度退单率</div><div class="kpi-val" style="color:var(--amber);">8.06%</div><div class="kpi-sub"><span>健康警戒红线</span><strong style="color:var(--amber);">≤ 10.0%</strong></div></div>
+    <div class="kpi" style="border-left-color:var(--emerald);"><div class="kpi-lbl">实际净留存订单</div><div class="kpi-val" style="color:var(--emerald);">285 <span style="font-size:14px;font-weight:400;color:var(--muted);">单</span></div><div class="kpi-sub"><span>净留存率</span><strong style="color:var(--emerald);">91.94%</strong></div></div>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <h2>顾问个人业绩与订单留存堆叠分布（脱敏编号 S01 ~ S12）</h2>
+      <p class="card-sub">识别“高成交低退单”标杆与“高退单异常波动”个体，用于精细化过程辅导</p>
+      <div class="chart-box"><canvas id="salesChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h2>分渠道退单率与留存韧性对比</h2>
+      <p class="card-sub">前端流量心智成熟度直接决定后端履约留存质量</p>
+      <div class="ch-item" style="background:#fff7ed;border-color:#fed7aa;"><div class="ch-top"><span>📱 短视频信息流（公域主力起量）</span><span class="rate-tag" style="background:#fee2e2;color:#b91c1c;">9.17% 退单率</span></div><div style="font-size:12px;color:#9a3412;">成交 218 单 ｜ 退单 20 单。直播/短视频冲动转化占比高，需强化开营前预期管理与需求筛选。</div></div>
+      <div class="ch-item" style="background:#f0fdf4;border-color:#bbf7d0;"><div class="ch-top"><span>📕 图文内容种草（高认知客群）</span><span class="rate-tag" style="background:#dcfce7;color:#166534;">6.45% 退单率</span></div><div style="font-size:12px;color:#166534;">成交 62 单 ｜ 退单 4 单。用户经深度内容种草后自主下单，决策理性，留存表现良性。</div></div>
+      <div class="ch-item" style="background:#eff6ff;border-color:#bfdbfe;"><div class="ch-top"><span>🔍 搜索定向与口碑转介绍</span><span class="rate-tag" style="background:#dbeafe;color:#1e40af;">3.33% 退单率</span></div><div style="font-size:12px;color:#1e40af;">成交 30 单 ｜ 退单 1 单。主动搜索与转介绍需求刚性最高，退单率显著低于大盘均值。</div></div>
+    </div>
+  </div>
+
+  <div class="g2eq">
+    <div class="card">
+      <h2>五大退费真实根因占比分布（对比审批表模糊原因）</h2>
+      <p class="card-sub">通过过程记录与回访标签还原真实流失结构，而非仅依赖“不想学了”等表层审批理由</p>
+      <div class="chart-box" style="height:250px;"><canvas id="causeChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h2>核心归因洞察：从“事后审批归档”转向“事前预警干预”</h2>
+      <p class="card-sub">定位退费高发时间窗与高危特征标签</p>
+      <ul style="list-style:none;font-size:13px;display:flex;flex-direction:column;gap:10px;">
+        <li>• <strong>72 小时黄金冷静期高发</strong>：超 <strong>64%</strong> 的退单集中在付款后 72 小时内且尚未完成首节体验课打卡的学员，开营前 3 天的承接密度是关键留存防线。</li>
+        <li>• <strong>跨期延期 = 高危流失信号</strong>：申请延期超过 14 天的用户因脱离学习场域、动机耗竭，最终退费概率是正常按期参营用户的 <strong>3.2 倍</strong>。</li>
+        <li>• <strong>表层理由 vs 真实动因错位</strong>：审批单里 40% 填报“没时间/个人原因”，实际交叉分析后主因集中在<strong>课程预期偏差</strong>与<strong>前期学习门槛过高</strong>。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>五大典型退费场景抽象拆解与产品迭代抓手（纯抽象场景模型）</h2>
+    <p class="card-sub">提炼 5 类高频通用业务场景，将客户流失转化为产品、售前与服务 SOP 优化方向</p>
+    <div class="case-grid">
+      <div class="case-card" style="border-left-color:#2563eb;">
+        <div class="case-head"><span class="case-dim">场景 1 · 预期与定位错位</span><span class="case-share">占退单 28% (7单)</span></div>
+        <h3>“速成变现期待”与“体系化学习”认知错位</h3>
+        <p><strong>共性特征：</strong>公域直播氛围下单，预期短期直接获得立竿见影的收益结果，进入课程后发现需要系统练习与投入时间，触发理性撤退。</p>
+        <div class="case-act">💡 落地抓手：收银台前置《学习投入与课程边界确认书》，销售端规范预期管理，杜绝过度承诺。</div>
+      </div>
+      <div class="case-card" style="border-left-color:#d97706;">
+        <div class="case-head"><span class="case-dim" style="background:#fef3c7;color:#b45309;">场景 2 · 排期冲突与时间超载</span><span class="case-share">占退单 24% (6单)</span></div>
+        <h3>职场高频加班/出差与固定直播排期硬冲突</h3>
+        <p><strong>共性特征：</strong>一线城市职场主力用户突发加班或出差，无法按时跟上集中直播与打卡节奏，担心权益浪费而选择止损退款。</p>
+        <div class="case-act">💡 落地抓手：将核心录播模块与高阶直播陪跑解耦，推出灵活自修版 + 精华回放剪辑包。</div>
+      </div>
+      <div class="case-card" style="border-left-color:#7c3aed;">
+        <div class="case-head"><span class="case-dim" style="background:#f3e8ff;color:#6b21a8;">场景 3 · 预算敏感与冲动冷却</span><span class="case-share">占退单 20% (5单)</span></div>
+        <h3>高客单一次性支出引发的次日理性后悔</h3>
+        <p><strong>共性特征：</strong>在限时优惠倒计时下冲动付款，次日盘点个人现金流产生支出焦虑，属于典型的低刚需跟风消费回撤。</p>
+        <div class="case-act">💡 落地抓手：设计低门槛轻量月卡/试学阶梯产品，降低首次决策阻力，用产品体验驱动自然升单。</div>
+      </div>
+      <div class="case-card" style="border-left-color:#059669;">
+        <div class="case-head"><span class="case-dim" style="background:#ecfdf5;color:#047857;">场景 4 · 跨期延期动机耗竭</span><span class="case-share">占退单 16% (4单)</span></div>
+        <h3>延期超过 2 周导致初始学习意愿自然冷却</h3>
+        <p><strong>共性特征：</strong>首期因临时事务申请延期至下月，在数周等待期内缺乏轻互动维系，重新开营时已失去最初学习冲动。</p>
+        <div class="case-act">💡 落地抓手：收紧延期周期上限（建议 ≤14 天），并在等待期配置每周 1 次轻量微任务保温。</div>
+      </div>
+      <div class="case-card" style="border-left-color:#e11d48;">
+        <div class="case-head"><span class="case-dim" style="background:#ffe4e6;color:#be123c;">场景 5 · 认知门槛与服务体验波动</span><span class="case-share">占退单 12% (3单)</span></div>
+        <h3>前 2 节课程术语偏深或社群响应不及时</h3>
+        <p><strong>共性特征：</strong>零基础用户在开营前两节遇到理解卡顿，若助教首响超时或引导不足，易迅速产生挫败感并申请退订。</p>
+        <div class="case-act">💡 落地抓手：优化新手引导手册与 10 分钟微课拆解，建立企微服务首响时长预警红线（≤15 分钟）。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="strat-wrap">
+    <div style="font-size:12px;font-weight:700;color:#60a5fa;text-transform:uppercase;">ACTIONABLE PRODUCT &amp; OPS UPGRADE</div>
+    <h2 style="font-size:20px;margin-top:4px;">基于退费归因的四大体系化留存优化方案</h2>
+    <div class="strat-grid">
+      <div class="strat-item"><h4>1. 售前需求匹配初筛</h4><p>支付后自动触发 3 分钟学习目标问卷，前置识别非刚需跟风人群与预期偏差，降低无效交付损耗。</p></div>
+      <div class="strat-item"><h4>2. 产品形态灵活解耦</h4><p>拆分“轻量化自助学习版”与“高阶直播陪跑版”，承接时间碎片化的职场忙碌客群。</p></div>
+      <div class="strat-item"><h4>3. 72小时高危预警模型</h4><p>对“付款 48h 未入群 / 未完成首节打卡 / 申请延期”用户自动打高危标签，触发班主任定向回访。</p></div>
+      <div class="strat-item"><h4>4. 服务过程量化红线</h4><p>将企微回复时效、首周互动深度、规范作息触达纳入运营过程看板，以数据守住交付口碑底线。</p></div>
+    </div>
+  </div>
+
+  <footer>吴幸晖 · 商业数据分析作品集 Demo ｜ 100% 独立仿真数据与抽象业务模型，无任何真实公司信息或个人隐私</footer>
+</div></div>
+<script>
+window.addEventListener('load',function(){
+  new Chart(document.getElementById('salesChart').getContext('2d'),{type:'bar',data:{labels:['顾问S01','顾问S02','顾问S03','顾问S04','顾问S05','顾问S06','顾问S07','顾问S08','顾问S09','顾问S10','顾问S11','顾问S12'],datasets:[{label:'净留存单数',data:[34,29,28,26,25,24,22,22,21,20,18,16],backgroundColor:'#1e3a8a',borderRadius:5},{label:'退单数',data:[1,4,2,2,1,2,0,3,2,3,2,3],backgroundColor:'#f59e0b',borderRadius:5}]},options:{responsive:true,maintainAspectRatio:false,scales:{x:{stacked:true,grid:{display:false}},y:{stacked:true,beginAtZero:true}},plugins:{legend:{position:'top',align:'end'}}}});
+  new Chart(document.getElementById('causeChart').getContext('2d'),{type:'bar',data:{labels:['预期与定位错位','排期/时间冲突','预算与冲动冷却','延期动机耗竭','门槛与服务波动'],datasets:[{label:'退单占比 (%)',data:[28,24,20,16,12],backgroundColor:['#2563eb','#f59e0b','#7c3aed','#059669','#e11d48'],borderRadius:6}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.x+'%'}}},scales:{x:{beginAtZero:true,max:35,ticks:{callback:v=>v+'%'}}}}});
+});
+</script>
+</body></html>
