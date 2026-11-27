@@ -199,10 +199,13 @@ footer {
       <span class="hero-tag">短剧出海 IAP/IAA 投放监测</span>
     </div>
     <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:20px;">
-      <a href="https://wuxinghui-roi-demo.streamlit.app/" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:6px; background:#10b981; color:#ffffff; padding:10px 18px; border-radius:8px; font-size:13.5px; font-weight:700; box-shadow:0 4px 12px rgba(16,185,129,0.3);">
-        🚀 在线体验 Streamlit 实时动态看板 →
+      <a href="https://wuxinghui-roi-demo.streamlit.app/" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:6px; background:#10b981; color:#ffffff; padding:10px 16px; border-radius:8px; font-size:13.5px; font-weight:700; box-shadow:0 4px 12px rgba(16,185,129,0.3);">
+        🚀 看板 1：渠道 ROI 实时看板 →
       </a>
-      <a href="#reports" style="display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.16); color:#ffffff; border:1px solid rgba(255,255,255,0.28); padding:10px 18px; border-radius:8px; font-size:13.5px; font-weight:600;">
+      <a href="https://wuxinghui-sales-ops.streamlit.app/" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:6px; background:#6366f1; color:#ffffff; padding:10px 16px; border-radius:8px; font-size:13.5px; font-weight:700; box-shadow:0 4px 12px rgba(99,102,241,0.3);">
+        🏆 看板 2：8模块销售人效与长尾看板 →
+      </a>
+      <a href="#reports" style="display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.16); color:#ffffff; border:1px solid rgba(255,255,255,0.28); padding:10px 16px; border-radius:8px; font-size:13.5px; font-weight:600;">
         📊 浏览 3 份交互式诊断报告 ↓
       </a>
     </div>
@@ -216,8 +219,8 @@ footer {
         <div class="stat-lbl">交互式 HTML 深度业务诊断报告</div>
       </div>
       <div class="stat-box">
-        <div class="stat-num">1 套</div>
-        <div class="stat-lbl">多业务线 Streamlit 实时 ROI 看板</div>
+        <div class="stat-num">2 套</div>
+        <div class="stat-lbl">Streamlit 实时看板（投放ROI + 8模块销售人效）</div>
       </div>
       <div class="stat-box">
         <div class="stat-num">4 类</div>
@@ -279,45 +282,59 @@ footer {
     </article>
   </div>
 
-  <!-- SECTION 2: STREAMLIT DASHBOARD -->
+  <!-- SECTION 2: DUAL STREAMLIT DASHBOARDS -->
   <div id="streamlit" class="sec-head">
-    <h2 class="sec-title">二、AI-Native 实时数据产品：Streamlit 多业务线 ROI 动态看板</h2>
-    <span class="sec-sub">独立结合 AI 工具研发部署，生产环境直连 CRM &amp; 飞书 API，公开 Demo 已替换为安全模拟引擎</span>
+    <h2 class="sec-title">二、AI-Native 实时数据产品：双 Streamlit 动态看板矩阵</h2>
+    <span class="sec-sub">独立结合 AI 工具研发部署，形成「前端渠道投放 ROI」+「后端 8 模块销售人效与长尾转化」全链路实时盯盘体系</span>
   </div>
 
-  <section class="spotlight">
-    <div class="spot-grid">
+  <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(460px, 1fr)); gap:20px;">
+    <!-- Dashboard 1 -->
+    <section class="spotlight" style="display:flex; flex-direction:column; justify-content:space-between;">
       <div>
-        <h3 style="font-size:18px; color:var(--navy); margin-bottom:8px;">📈 渠道投放 ROI 与转化分析中心（Streamlit + Plotly）</h3>
-        <p style="font-size:13.5px; color:var(--text);">
-          解决业务团队看数滞后、跨期对比口径割裂与多团队 PK 难的痛点。打开网页链接即可点击刷新实时拉取最新渠道转化率、ROI、盈亏与退单表现，并支持一键导出格式化 Excel。
+        <span class="card-kicker k-emerald">看板 1 · 前端投放与经营 ROI</span>
+        <h3 style="font-size:18px; color:var(--navy); margin-bottom:8px;">📈 渠道投放 ROI 与转化分析中心</h3>
+        <p style="font-size:13px; color:var(--text);">
+          聚焦前端买量与经营大盘：支持 3 条业务线切换、核心渠道置顶、跨期自动折叠单线、A/B/C 三大运营团队横向 PK 及一键导出 Excel。
         </p>
-        <div class="arch-flow">
-          <span class="arch-step">CRM / 飞书 API</span>
-          <span class="arch-arrow">→</span>
-          <span class="arch-step">Python 自动清洗 &amp; 加权聚合</span>
-          <span class="arch-arrow">→</span>
-          <span class="arch-step">MySQL 反向校验</span>
-          <span class="arch-arrow">→</span>
-          <span class="arch-step">Streamlit 实时看板</span>
+        <div class="arch-flow" style="font-size:12px;">
+          <span class="arch-step">模拟 API 实时刷新</span><span class="arch-arrow">→</span>
+          <span class="arch-step">加权合并口径</span><span class="arch-arrow">→</span>
+          <span class="arch-step">3 大视角 + Excel</span>
         </div>
-        <ul class="meta-list" style="margin-bottom:0;">
-          <li><strong>三大核心视图：</strong>① 期次明细复盘（核心渠道置顶聚焦）；② 渠道跨期对比（全选自动折叠单线防杂乱）；③ 月度汇总 &amp; A/B/C 三大运营团队横向 PK。</li>
-          <li><strong>严谨口径治理：</strong>自动加权合并同期次分段同名渠道，退单率严格按 <code>正式课退单 / (正式课退单 + 总成交单数)</code> 计算，彻底消除均值再平均误差。</li>
+        <ul class="meta-list" style="margin-bottom:16px;">
+          <li><strong>严谨口径：</strong>自动加权合并同期次分段同名渠道；退单率严格按 <code>退单/(退单+总单数)</code> 计算。</li>
+          <li><strong>已上线状态：</strong>免密公开可直达，支持点击刷新模拟实时增量数据。</li>
         </ul>
       </div>
-      <div class="deploy-box">
-        <h4>🚀 在线实时体验（Streamlit Cloud 已上线 · 免密直达）</h4>
-        <p>已部署至公网，内置高仿真模拟 API 实时数据引擎。点击左侧刷新按钮即可实时模拟增量拉取，支持 3 条业务线切换、跨期自动折叠与 A/B/C 三团队 PK 及一键导出 Excel。</p>
-        <a class="btn-open" href="https://wuxinghui-roi-demo.streamlit.app/" target="_blank" rel="noopener noreferrer" style="margin-bottom:12px; background:#059669;">
-          🚀 点击在线打开 Streamlit 实时动态看板 →
-        </a>
-        <div style="font-size:12px; color:#0369a1; word-break:break-all;">
-          在线地址：<a href="https://wuxinghui-roi-demo.streamlit.app/" target="_blank" rel="noopener noreferrer" style="text-decoration:underline; font-weight:600;">https://wuxinghui-roi-demo.streamlit.app/</a>
+      <a class="btn-open" href="https://wuxinghui-roi-demo.streamlit.app/" target="_blank" rel="noopener noreferrer" style="background:#059669;">
+        🚀 在线打开【渠道 ROI 实时看板】 →
+      </a>
+    </section>
+
+    <!-- Dashboard 2 -->
+    <section class="spotlight" style="display:flex; flex-direction:column; justify-content:space-between;">
+      <div>
+        <span class="card-kicker k-indigo">看板 2 · 后端 8 模块人效与长尾转化</span>
+        <h3 style="font-size:18px; color:var(--navy); margin-bottom:8px;">🏆 全链路销售转化与人效诊断中心（8 大模块）</h3>
+        <p style="font-size:13px; color:var(--text);">
+          聚焦后端精细化管理与 Cohort 滞后转化：涵盖顾问综合完成度排名、<strong>跨期转化热力矩阵</strong>、<strong>D6-D14 结营后长尾追单分析</strong>与带样式 Excel 战报导出。
+        </p>
+        <div class="arch-flow" style="font-size:12px;">
+          <span class="arch-step">订单 × 回填双表</span><span class="arch-arrow">→</span>
+          <span class="arch-step">8 大深度 Tab</span><span class="arch-arrow">→</span>
+          <span class="arch-step">热力矩阵 &amp; 长尾追单</span>
         </div>
+        <ul class="meta-list" style="margin-bottom:16px;">
+          <li><strong>高阶视角：</strong>内置顾问 × 期次转化率热力图，以及 D0-D5 营期内 vs D6-D14 结营后长尾转化曲线。</li>
+          <li><strong>已上线状态：</strong>免密公开可直达，支持 8 大模块交互筛选与带样式 Excel 战报一键导出。</li>
+        </ul>
       </div>
-    </div>
-  </section>
+      <a class="btn-open" href="https://wuxinghui-sales-ops.streamlit.app/" target="_blank" rel="noopener noreferrer" style="background:#4338ca;">
+        🏆 在线打开【8模块销售人效与长尾看板】 →
+      </a>
+    </section>
+  </div>
 
   <!-- SECTION 3: DATA QUALITY & MYSQL AUDIT -->
   <div id="quality" class="sec-head">
